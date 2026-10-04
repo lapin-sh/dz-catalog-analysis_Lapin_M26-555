@@ -138,3 +138,22 @@ def format_report_line(movie):
     duration = duration_in_hours(movie["duration_min"])
     return (f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, '
             f'{duration}, жанры: {genres}')
+
+
+# Этап 5. Списки
+
+def titles_sorted_by_rating(catalog):
+    """Возвращает названия фильмов по убыванию рейтинга."""
+    sorted_movies = sorted(catalog, key=lambda movie: movie["rating"], reverse=True)
+    titles = []
+    for movie in sorted_movies:
+        titles.append(movie["title"])
+    return titles
+
+
+def top_n_by_rating(catalog, n=3):
+    sorted_movies = sorted(catalog, key=lambda movie: movie["rating"], reverse=True)
+    top = []
+    for movie in sorted_movies[:n]:
+        top.append((movie["title"], movie["rating"]))
+    return top
