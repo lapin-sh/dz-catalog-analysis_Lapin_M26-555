@@ -186,3 +186,22 @@ def high_rated_titles(catalog):
     average = average_rating(catalog)
     return {movie["title"]: movie["rating"] for movie in catalog
             if movie["rating"] > average}
+
+
+# Этап 7. Множества
+
+def all_genres(catalog):
+    """Возвращает множество всех уникальных жанров каталога."""
+    genres = set()
+    for movie in catalog:
+        genres = genres | movie["genres"]
+    return genres
+
+
+def common_actors(movie1, movie2):
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(catalog_a, catalog_b):
+    """Возвращает жанры, которые есть в catalog_a, но нет в catalog_b."""
+    return all_genres(catalog_a) - all_genres(catalog_b)
