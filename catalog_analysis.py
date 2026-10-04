@@ -205,3 +205,23 @@ def common_actors(movie1, movie2):
 def genres_only_in_one(catalog_a, catalog_b):
     """Возвращает жанры, которые есть в catalog_a, но нет в catalog_b."""
     return all_genres(catalog_a) - all_genres(catalog_b)
+
+
+# Этап 8. Итераторы и генераторы
+
+def iter_high_rated(catalog, min_rating=8.0):
+    """Генератор: отдает фильмы с рейтингом не ниже min_rating."""
+    for movie in catalog:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+
+def print_high_rated(catalog):
+    """Печатает строки отчета по фильмам с рейтингом не ниже 8.0."""
+    for movie in iter_high_rated(catalog):
+        print(format_report_line(movie))
+
+
+def total_duration_high_rated(catalog):
+    """Считает суммарную длительность фильмов с рейтингом выше 7."""
+    return sum(movie["duration_min"] for movie in catalog if movie["rating"] > 7)
