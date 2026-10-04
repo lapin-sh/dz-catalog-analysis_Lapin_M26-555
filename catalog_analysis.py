@@ -59,3 +59,26 @@ def catalog_age_stats(catalog, current_year=2026):
 
 def duration_in_hours(minutes):
     return f"{minutes // 60}ч {minutes % 60}м"
+
+
+# Этап 2. Условия и match
+
+def rating_tier(rating):
+    """Возвращает категорию фильма по его оценке."""
+    if rating >= 9:
+        return "шедевр"
+    elif rating < 5:
+        return "слабо"
+    else:
+        return "хорошо" if rating >= 7 else "средне"
+
+
+def decade_label(year):
+    """Возвращает метку десятилетия через оператор match."""
+    match year:
+        case _ if year > 2020:
+            return "новые"
+        case _ if year >= 2015:
+            return "недавние"
+        case _:
+            return "старые"
