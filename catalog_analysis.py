@@ -157,3 +157,32 @@ def top_n_by_rating(catalog, n=3):
     for movie in sorted_movies[:n]:
         top.append((movie["title"], movie["rating"]))
     return top
+
+
+# Этап 6. Словари
+
+def count_by_genre(catalog):
+    """Возвращает словарь {жанр: количество фильмов} через dict.get()."""
+    counts = {}
+    for movie in catalog:
+        for genre in movie["genres"]:
+            counts[genre] = counts.get(genre, 0) + 1
+    return counts
+
+
+def actor_filmography(catalog):
+    """Возвращает словарь {актер: список фильмов с его участием}."""
+    filmography = {}
+    for movie in catalog:
+        for actor in movie["actors"]:
+            films = filmography.get(actor, [])
+            films.append(movie["title"])
+            filmography[actor] = films
+    return filmography
+
+
+def high_rated_titles(catalog):
+    """Генератор словаря {название: рейтинг} для фильмов выше среднего."""
+    average = average_rating(catalog)
+    return {movie["title"]: movie["rating"] for movie in catalog
+            if movie["rating"] > average}
