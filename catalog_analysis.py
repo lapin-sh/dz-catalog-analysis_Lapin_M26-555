@@ -225,3 +225,34 @@ def print_high_rated(catalog):
 def total_duration_high_rated(catalog):
     """Считает суммарную длительность фильмов с рейтингом выше 7."""
     return sum(movie["duration_min"] for movie in catalog if movie["rating"] > 7)
+
+
+# Этап 9. Итоговый отчет
+
+def build_report(catalog):
+    """Собирает и печатает итоговый отчет по каталогу."""
+    print("ОТЧЕТ ПО КАТАЛОГУ")
+    print(f"Средний рейтинг: {average_rating(catalog)}")
+    oldest, newest, average_age = catalog_age_stats(catalog)
+    print(f"Средний возраст фильмов: {average_age} лет")
+
+    print("Топ-3 фильма:")
+    for title, rating in top_n_by_rating(catalog, 3):
+        for movie in catalog:
+            if movie["title"] == title:
+                print(f"  {format_report_line(movie)}")
+
+    counts = count_by_genre(catalog)
+    genre_names = sorted(counts)
+    # сортировка стабильная: при равном количестве жанры остаются по алфавиту
+    genre_names.sort(key=lambda genre: counts[genre], reverse=True)
+    print("Фильмов по жанрам:")
+    for genre in genre_names:
+        print(f"  {genre} — {counts[genre]}")
+
+    genres_line = ", ".join(sorted(all_genres(catalog)))
+    print(f"Все жанры каталога: {genres_line}")
+
+
+if __name__ == "__main__":
+    build_report(movies)
